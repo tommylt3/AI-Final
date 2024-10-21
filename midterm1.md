@@ -175,5 +175,105 @@ Backtracking search is the basic uninformed algorithm for CSPs
 
 #### Improvements for CSPS
 
+##### Minimal Reamining Values
+- Chooses the variable that has the fewest remaining possible values
+**Degree heuristic**:choose the variable with the most constraints on remaining variables
+
 ##### Forward Checking
-##### 
+Keeps track of all variables remaining possible assignments, terminates when a variable has no possible values
+
+Forward checking prevents assignments that guarantee later failure
+
+##### Constraint Propagation 
+Keeps contraints consitent among related variables, makes sure that constraints cant be violated among variables. 
+- Constraint propagation repeatedly enforces constraints locally
+
+#### Arc Consistency
+Ensures X does not share constraints with neighbors, if X loses a value; W & Y need to be rechecked.
+
+**Arc Consistency** Detects failures earlier than Forward Checking
+Can be run as a preprocessor or after each assignment
+
+```
+function AC-3( csp) returns the CSP, possibly with reduced domains
+    inputs: csp, a binary CSP with variables {X1 , X2 , . . . , Xn }
+    local variables: queue, a queue of arcs, initially all the arcs in csp
+    while queue is not empty do
+        (X i, X j) ← Remove-First(queue)
+        if Remove-Inconsistent-Values(X i , X j) then
+            for each Xk in Neighbors[Xi ] do
+                add (Xk , Xi ) to queue
+
+function Remove-Inconsistent-Values( Xi , X j ) returns true iff succeeds
+    removed ← false
+    for each x in Domain[Xi] do
+        if no value y in Domain[Xj] allows (x,y) to satisfy the constraint Xi ↔ Xj
+            then delete x from Domain[X i ]; removed ← true
+    return removed
+```
+
+
+## Chapter 7
+  1. Knowledge-based agents
+  2. Wumpus world
+  3. Logic in general—models and entailment
+  4. Propositional (Boolean) logic
+  5. Equivalence, validity, satisfiability
+  6. Inference rules and theorem proving
+     1. resolution
+     2. forward chaining
+     3. backward chaining
+  7. Effective Propositional Model Checking
+
+### Knowledge Based Agents
+
+**Knowledge Base** = set of sentences in a formal language
+**Declarative Approach** to building an agent (or other system): 
+  1. Tell it what it needs to know
+  2. Then it can Ask itself what to do—answers should follow from the K B
+**Agents** can be viewed at the **knowledge level** 
+- i.e., what they know, regardless of how implemented 
+Or at the **implementation level** 
+- i.e., data structures in KB and algorithms that manipulate them
+
+The agent must be able to:
+  1. Represent states, actions, etc.
+  2. Incorporate new percepts
+  3. Update internal representations of the world
+  4. Deduce hidden properties of the world
+  5. Deduce appropriate actions
+
+### Logic
+
+**Logics** are formal languages for representing information such that conclusions can be drawn.
+**Syntax** defines the sentences in the language
+**Semantics** define the “meaning” of sentences
+- i.e., define truth of a sentence in a world
+**Entails** means that one thing follows from another
+$ KB |= a $, entails KB is true if and only if a is true in all worlds where KB is true
+
+Entailment is a relationship between sentences (i.e., syntax, A |= b)
+that is based on semantics (mapping on the domain/world)
+
+Logicians typically think in terms of **models**, which are formally
+structured worlds with respect to which truth can be evaluated. 
+
+We say m is a **model** of a sentence α if α is true in m
+M(α) is the set of all models of α
+Then $KB |= α $ if and only if $M(K B) ⊆ M (α)$
+
+
+
+
+
+
+## Things To Practice
+1. A* Search 
+2. Uniform Cost Search
+3. Min-Max Search
+4. Monte Carlo Search
+5. Alpha-Beta Pruning
+6. CSPs
+   1. Arc Consistency
+   2. Forward Checking
+7. 

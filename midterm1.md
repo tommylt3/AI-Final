@@ -243,7 +243,7 @@ The agent must be able to:
   4. Deduce hidden properties of the world
   5. Deduce appropriate actions
 
-### Logic
+### Propositional Logic
 
 **Logics** are formal languages for representing information such that conclusions can be drawn.
 **Syntax** defines the sentences in the language
@@ -251,6 +251,11 @@ The agent must be able to:
 - i.e., define truth of a sentence in a world
 **Entails** means that one thing follows from another
 $ KB |= a $, entails KB is true if and only if a is true in all worlds where KB is true
+
+**Inference**: deriving sentences from other sentences
+**Soundess**: derivations produce only entailed sentences
+**Completeness**: derivations can produce all entailed sentences
+
 
 Entailment is a relationship between sentences (i.e., syntax, A |= b)
 that is based on semantics (mapping on the domain/world)
@@ -262,8 +267,70 @@ We say m is a **model** of a sentence α if α is true in m
 M(α) is the set of all models of α
 Then $KB |= α $ if and only if $M(K B) ⊆ M (α)$
 
+#### Syntax of Propositional Logic
+- -X : Negation (Not)
+- X ^ Y: Conjuction (And)
+- X ∨ Y: Disjunction (Or)
+- X => Y: Implication (This implies that) ((True -> T∨F) ∨ (False -> False))
+- X <=> Y: Biconditional (They imply each other) ((True<->True)∨(False<->False))
 
 
+### Horn Form 
+
+#### Forward Chaining
+
+#### Backward Chaining
+
+### Conjuctive Normal Form
+
+Steps:
+1. Eliminate Biconditionals with Conjuctions Of Implications
+   1. Ex. A <-> B becomes (A->B) ^ (B -> A)
+2. Eliminate Implications with Negation Disjunctions
+   1. Ex. (A -> B) ^ (B -> A) becomes (-A ∨ B) ^ (-B ∨ A)
+3. Move inwards Negations using De Morgan's rules and Double Negation
+   1. -(A V (-B ^ C)) becomes (-A ^ (B V -C))
+4. Apply distributivity law (V over ^) and flatten
+   1. Ex. (A ^ B) V C becomes (A ^ C) V (B ^ C)
+
+
+
+## Chapter 8
+
+1. First Order Logic
+2. Syntax and Semantics
+3. Knowledge Engineering In FOL
+
+### First Order Logic Semantics
+
+1. Constants: Tommy, 1
+2. Predicates: Brother, Son
+3. Functions: Sqrt, LeftLegOf
+4. Variables: x,y,a,b
+5. Connectives: ^,V, -, ->, <->
+6. Equality: =
+7. Quantifiers: ∀, ∃
+8. Atomic Sentance: predicate(term_1, ..., term_n) or term_1 = term_2
+9. Term = function(term_1, ..., term_n) or constant or variable
+10. Complex Sentences: atomic sentences using connectives 
+Interpretation specifies referents for
+- constant symbols → objects predicate
+- symbols → relations
+- function symbols → functional relations
+An atomic sentence predicate(term_1, ..., term_n ) is true if the objects referred to by term1, . . . , termn are in the relation referred to by predicate
+
+∀x At(x, Standord) -> Smart(x), All people at Stanford are smart
+- Use -> for ∀
+  
+∃x At(x, Standord) ^ Smart(x), Someone is at Stanford and Someone is smart
+- Use ^ for ∃
+
+**Quantifier Duality:**: They are equivalents when the entire sentence is negated.
+
+**Skolemization**: Skolemization is a process used in first-order logic (FOL) to eliminate existential quantifiers by replacing them with Skolem functions or constants. This is particularly useful in automated theorem proving and in transforming formulas into a form that can be used for resolution.
+- Ex. ∀y ∃x P(x,y) becomes ∀y P(f(y),y)
+
+**Unification**: Unifiers replace instances of x with y, denoted as a set x/y ```{x/y}```
 
 
 
@@ -276,4 +343,7 @@ Then $KB |= α $ if and only if $M(K B) ⊆ M (α)$
 6. CSPs
    1. Arc Consistency
    2. Forward Checking
-7. 
+7. FOL
+8. Horn Clause
+9. Unification
+10. FOL -> CNF
